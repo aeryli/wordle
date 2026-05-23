@@ -107,15 +107,10 @@ function collectGuess({ kb, board, round, words }) {
       if (key === "+") {
         if (letters.length === 5) {
           const guessIsValid = words.includes(letters.join(""));
-          if (!guessIsValid) {
-            $(".feedback").innerText = "Invalid Word";
-            await animate($$(".round")[round], "shake", 800);
-          } else {
-            $(".feedback").innerText = "";
-            kb.off(keyHandler);
-            document.removeEventListener('keydown', keyDownHandler);
-            submit(letters);
-          }
+          $(".feedback").innerText = "";
+          kb.off(keyHandler);
+          document.removeEventListener('keydown', keyDownHandler);
+          submit(letters);
 
           function keyDownHandler(e) {
             const key = e.key.toLowerCase();
