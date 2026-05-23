@@ -41,7 +41,7 @@ async function init() {
   const kb = generateKeyboard();
 
   const words = (await dictionaryRequest).split("\n");
-  const word = 'HORSE';
+  const word = 'HOLES';
 
   await startGame({ word, kb, board, words });
 }
