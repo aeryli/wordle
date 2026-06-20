@@ -40,10 +40,42 @@ async function init() {
   const board = generateBoard();
   const kb = generateKeyboard();
 
+  //Word defined here - ,>>
   const words = (await dictionaryRequest).split("\n");
   const word = 'HOLES';
 
   await startGame({ word, kb, board, words });
+}
+
+async function getRandomLine(fileUrl) {
+  try {
+    // 1. Fetch the text file from the server or URL
+    const response = await fetch(fileUrl);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    // 2. Extract the raw text content
+    const text = await response.text();
+
+    // 3. Split text by newlines (handles both Windows \r\n and UNIX \n)
+    // filter(Boolean) removes empty lines (like a trailing newline at the end of the file)
+    const lines = text.split(/\r?\n/).filter(Boolean);
+
+    if (lines.length === 0) {
+      return "The file is empty.";
+    }
+
+    // 4. Generate a random index based on the array length
+    const randomIndex = Math.floor(Math.random() * lines.length);
+
+    // 5. Return the random line
+    return lines[randomIndex];
+  } catch (error) {
+    console.error("Failed to fetch or read the file:", error);
+    return null;
+  }
 }
 
 async function animate(el, name, ms) {
