@@ -43,7 +43,7 @@ async function init() {
   let leng = 12381;
   //Word defined here - ,>>
   const words = (await dictionaryRequest).split("\n");
-  print(words)
+  console.log(words)
   const word = 'HOLES';
 
   await startGame({ word, kb, board, words });
